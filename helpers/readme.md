@@ -43,7 +43,7 @@ for _, n := range node.neighbors {
 ~~~
 For that reason it's by far my preferred way of working with grids, and I have two functions to build them for me:
 
-### IGridAsGraph() and RGridAsGraph
+### IGridAsGraph() and RGridAsGraph()
 Both of these functions take a (multiline) string as input, which represents a grid with an arbitrary width and height. The difference is that one of them assumes a grid of integers (and takes care of the conversion from rune to int), and the other assumes a grid of runes. Either way, they will return a slice of nodes with populated neighbor pointers. Here's what I mean by node (taking the int version as an example):
 ~~~
 type inode struct {
