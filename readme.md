@@ -10,7 +10,7 @@ I see Advent of Code as a great way to become a better programmer. My main goal 
 
 ## How is this repo structured?
 
-The entire repo builds to a single binary, with the ´main()´ function living in advent.go. To print the solutions for a given day (e.g., the first day), I run the following command:
+The entire repo builds to a single binary, with the `main()` function living in advent.go. To print the solutions for a given day (e.g., the first day), I run the following command:
 ~~~
 go run ./advent.go 1
 ~~~
@@ -19,4 +19,4 @@ The **solutions** for individual days each get their own directory. That directo
 > [!Note]
 > In the unlikely case I think a solution is particularly interesting or clever, I might add a separate *readme.md* file in that directory.
 
-Additionally, there is a **helpers** directory, containing a *helpers* package. This package exposes useful functions that aren't linked to a single puzzle or day, but can make life a little easier. E.g: returning all ints from a string, or a ´Dequeue()´ function that allows me to use a slice as a queue. 
+Additionally, there is a **helpers** directory, containing a *helpers* package. This package exposes useful functions that aren't linked to a single puzzle or day, but can make life a little easier. E.g: returning all ints from a string, or a `Dequeue()` function that allows me to use a slice as a queue. 
