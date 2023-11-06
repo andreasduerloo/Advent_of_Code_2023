@@ -2,7 +2,7 @@
 
 These are my solutions for the 2023 edition of [Advent of Code](https://adventofcode.com/).
 
-I see Advent of Code as a great way to become a better programmer. My main goal is to score better than the year before, because that would show I have improved as a programmer over the last eleven months. This year I want to reach **more than 30 stars** during the event (in other words, before December 26th).
+I see Advent of Code as a great way to become a better programmer (as well as a fun puzzle to share and discuss with friends and colleagues). My goal for this year is to score **more than 30 stars** during the event (in other words, before December 26th).
 
 ## Progress
 
