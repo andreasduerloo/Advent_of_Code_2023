@@ -34,6 +34,24 @@ func Member[T comparable](k T, m map[T]struct{}) bool {
 // Input parsing //
 ///////////////////
 
+// For those puzzles where the input is a long list of integers
+func ParseIntList(input []byte) []int {
+	out := make([]int, 0)
+	lines := strings.Split(string(input), "\n")
+
+	for _, line := range lines {
+		if line != "" {
+			val, err := strconv.Atoi(line)
+			if err != nil {
+				continue
+			}
+
+			out = append(out, val)
+		}
+	}
+	return out
+}
+
 // Returns all the integers found in a string as a slice. Integers do not need to be separated from non-integer runes
 // If you know a line will only contain a single int, grab it by indexing [0] in the output
 func ReGetInts(s string) []int {
