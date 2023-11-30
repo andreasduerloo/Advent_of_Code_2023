@@ -30,6 +30,38 @@ func Member[T comparable](k T, m map[T]struct{}) bool {
 	return present
 }
 
+// Sum a slice of ints
+func SumSlice(s []int) int {
+	sum := 0
+	for _, i := range s {
+		sum += i
+	}
+
+	return sum
+}
+
+////////////////////////////
+// Higher-order functions //
+////////////////////////////
+
+func Filter(slice []int, condition func(int) bool) []int {
+	var result []int
+	for _, v := range slice {
+		if condition(v) {
+			result = append(result, v)
+		}
+	}
+	return result
+}
+
+func MapInt(slice []int, mapping func(int) int) []int {
+	var result []int
+	for _, v := range slice {
+		result = append(result, mapping(v))
+	}
+	return result
+}
+
 ///////////////////
 // Input parsing //
 ///////////////////
@@ -199,4 +231,39 @@ type point struct {
 // Returns the manhattan distance between two points
 func ManhattanDistance(a, b point) int {
 	return slices.Max([]int{a.x, b.x}) - slices.Min([]int{a.x, b.x}) + slices.Max([]int{a.y, b.y}) - slices.Min([]int{a.y, b.y})
+}
+
+//////////
+// Math //
+//////////
+
+func Pow(base, exp int) int {
+	out := 1
+
+	for i := exp; i > 0; i-- {
+		out *= base
+	}
+
+	return out
+}
+
+func Abs(i int) int {
+	if i < 0 {
+		return -i
+	}
+	return i
+}
+
+/////////////////////////
+// String manipulation //
+/////////////////////////
+
+func ReverseString(s string) string {
+	var out string
+
+	for _, r := range s {
+		out = string(r) + out
+	}
+
+	return out
 }
