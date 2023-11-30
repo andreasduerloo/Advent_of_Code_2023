@@ -2,7 +2,7 @@
 
 These are my solutions for the 2023 edition of [Advent of Code](https://adventofcode.com/).
 
-I see Advent of Code as a great way to become a better programmer (as well as a fun puzzle to share and discuss with friends and colleagues). My goal for this year is to score **more than 30 stars** during the event (in other words, before December 26th).
+I see Advent of Code as a great way to become a better programmer (as well as a fun puzzle to share and discuss with friends and colleagues). As such my goal is to do better than I did last year, and to score **more than 30 stars** during the event (in other words, before December 26th).
 
 ## Progress
 
@@ -15,7 +15,7 @@ The entire repo builds to a single binary, with the `main()` function living in 
 ~~~
 go run ./advent.go 1
 ~~~
-The **solutions** for individual days each get their own directory. That directory contains a *lib.go* file with all the code doing the heavy lifting, as well as a *\*.go* file that exposes a ´Solve()´ function. That function's job is to read in the puzzle input, pass it off to a parsing function, handle the high-level logic, and return the solutions. This function is called from the ´main()´ function.
+The **solutions** for individual days each get their own directory. That directory contains a *lib.go* file with all the code doing the heavy lifting, as well as a *\day_\*\*.go* file that exposes a ´Solve()´ function. That function's job is to read in the puzzle input, pass it off to a parsing function, handle the high-level logic, and return the solutions. This function is called from the ´main()´ function.
 
 > [!Note]
 > In the unlikely case I think a solution is particularly interesting or clever, I might add a separate *readme.md* file in that directory.
