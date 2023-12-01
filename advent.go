@@ -2,6 +2,7 @@ package main
 
 import (
 	"advent2023/day_01"
+	"advent2023/day_02"
 	"fmt"
 	"os"
 	"strconv"
@@ -25,6 +26,9 @@ func main() {
 	switch day {
 	case 1:
 		first, second := day_01.Solve()
+		fmt.Println(first, second)
+	case 2:
+		first, second := day_02.Solve()
 		fmt.Println(first, second)
 	default:
 		fmt.Println("That's either not a valid day, or it has not been solved (yet!)")

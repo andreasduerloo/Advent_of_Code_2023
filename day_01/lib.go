@@ -66,7 +66,7 @@ func parse2(input []byte) []int {
 	return out
 }
 
-func findIndex(s string, list []string, first bool) (int, error) {
+func findIndex(s string, list []string, first bool) (int, error) { // This looks horrible, could be replaced with a hashmap
 	for i := 0; i < len(list); i++ {
 		if list[i] == s {
 			return i, nil

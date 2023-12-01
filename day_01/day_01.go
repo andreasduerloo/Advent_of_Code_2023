@@ -19,8 +19,8 @@ func Solve() (int, int) {
 	list = parse2(input)
 	second := helpers.SumSlice(list)
 
-	// Test the naive solution
-	fmt.Println(naive(input))
+	// Test the naive solution - it works
+	// fmt.Println(naive(input))
 
 	return first, second
 }
