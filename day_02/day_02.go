@@ -14,5 +14,7 @@ func Solve() (int, int) {
 
 	first, second := 0, 0
 
+	fmt.Println(input)
+
 	return first, second
 }

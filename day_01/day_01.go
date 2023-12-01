@@ -1,7 +1,6 @@
 package day_01
 
 import (
-	"advent2023/helpers"
 	"fmt"
 	"os"
 )
@@ -13,14 +12,8 @@ func Solve() (int, int) {
 		return 0, 0
 	}
 
-	list := parse(input)
-	first := helpers.SumSlice(list)
-
-	list = parse2(input)
-	second := helpers.SumSlice(list)
-
-	// Test the naive solution - it works
-	// fmt.Println(naive(input))
+	first := parse(input, false)
+	second := parse(input, true)
 
 	return first, second
 }
