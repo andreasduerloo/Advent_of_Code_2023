@@ -137,8 +137,8 @@ func findDigits(s string) []int {
 		}
 
 		// Three-letter digits
-		if i+3 < len(s) {
-			nextThree := s[i : i+4]
+		if i+3 <= len(s) {
+			nextThree := s[i : i+3]
 			switch nextThree {
 			case "one":
 				out = append(out, 1)
@@ -153,8 +153,8 @@ func findDigits(s string) []int {
 		}
 
 		// Four-letter digits
-		if i+4 < len(s) {
-			nextFour := s[i : i+5]
+		if i+4 <= len(s) {
+			nextFour := s[i : i+4]
 			switch nextFour {
 			case "four":
 				out = append(out, 4)
@@ -169,9 +169,12 @@ func findDigits(s string) []int {
 		}
 
 		// Five-letter digits
-		if i+5 < len(s) {
-			nextFive := s[i : i+6]
+		if i+5 <= len(s) {
+			nextFive := s[i : i+5]
 			switch nextFive {
+			case "three":
+				out = append(out, 3)
+				continue
 			case "seven":
 				out = append(out, 7)
 				continue
