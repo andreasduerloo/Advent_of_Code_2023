@@ -23,7 +23,7 @@ func main() {
 	fmt.Println("Solutions for day", day)
 
 	switch day {
-	case '1':
+	case 1:
 		first, second := day_01.Solve()
 		fmt.Println(first, second)
 	default:
