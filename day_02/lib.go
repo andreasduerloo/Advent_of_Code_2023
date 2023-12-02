@@ -6,6 +6,7 @@ import (
 	"strings"
 )
 
+// Input parsing
 type game struct {
 	id    int
 	blue  int
@@ -66,6 +67,7 @@ func newGame(input string) game {
 	return out
 }
 
+// First star
 func possible(g, max game) bool {
 	return g.blue <= max.blue && g.red <= max.red && g.green <= max.green
 }
@@ -86,6 +88,7 @@ func filterReduce(s []game, max game, filter func(game, game) bool, reduce func(
 	return out
 }
 
+// Second star
 func gamePower(g game) int {
 	return g.blue * g.red * g.green
 }

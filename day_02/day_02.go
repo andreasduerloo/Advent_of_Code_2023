@@ -21,7 +21,6 @@ func Solve() (int, int) {
 	}
 
 	first := filterReduce(games, max, possible, reduceId)
-
 	second := mapReduce(games, gamePower)
 
 	return first, second
