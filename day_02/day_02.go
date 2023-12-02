@@ -12,9 +12,17 @@ func Solve() (int, int) {
 		return 0, 0
 	}
 
-	first, second := 0, 0
+	games := parse(input)
 
-	fmt.Println(input)
+	max := game{
+		blue:  14,
+		red:   12,
+		green: 13,
+	}
+
+	first := filterReduce(games, max, possible, reduceGame)
+
+	second := mapReduce(games, gamePower)
 
 	return first, second
 }
