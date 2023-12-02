@@ -20,4 +20,9 @@ The **solutions** for individual days each get their own directory. That directo
 > [!Note]
 > In the unlikely case I think a solution is particularly interesting or clever, I might add a separate *readme.md* file in that directory.
 
-Additionally, there is a **helpers** directory, containing a *helpers* package. This package exposes useful functions that aren't linked to a single puzzle or day, but can make life a little easier. E.g: returning all ints from a string, or a `Dequeue()` function that allows me to use a slice as a queue. 
+Additionally, there is a **helpers** directory, containing a *helpers* package. This package exposes useful functions that aren't linked to a single puzzle or day, but can make life a little easier. E.g: returning all ints from a string, or a `Dequeue()` function that allows me to use a slice as a queue.
+
+## Solutions
+
+[X] Day 1: [Trebuchet?!](https://github.com/andreasduerloo/Advent_of_Code_2023/tree/main/day_01) :star::star:
+[x] Day 2: [Cube Conundrum](https://github.com/andreasduerloo/Advent_of_Code_2023/tree/main/day_02) :star::star:
