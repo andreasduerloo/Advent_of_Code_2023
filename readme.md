@@ -25,4 +25,4 @@ Additionally, there is a **helpers** directory, containing a *helpers* package. 
 ## Solutions
 
 [X] Day 1: [Trebuchet?!](https://github.com/andreasduerloo/Advent_of_Code_2023/tree/main/day_01) :star::star:
-[x] Day 2: [Cube Conundrum](https://github.com/andreasduerloo/Advent_of_Code_2023/tree/main/day_02) :star::star:
+[X] Day 2: [Cube Conundrum](https://github.com/andreasduerloo/Advent_of_Code_2023/tree/main/day_02) :star::star:
