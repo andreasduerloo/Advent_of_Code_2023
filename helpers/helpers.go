@@ -273,6 +273,7 @@ func ReverseString(s string) string {
 //////////////////////////
 
 // Generic filter function
+// Returns a slice containing all the elements of the input slice for which the given function returns true
 func FilterSlice[T any](s []T, f func(T) bool) []T {
 	var out []T
 
@@ -286,11 +287,52 @@ func FilterSlice[T any](s []T, f func(T) bool) []T {
 }
 
 // Generic map function
+// Returns a slice containing the output of the given function for each element of the original slice
 func MapSlice[T, U any](s []T, f func(T) U) []U {
 	var out []U
 
 	for _, elem := range s {
 		out = append(out, f(elem))
+	}
+
+	return out
+}
+
+// Generic 'any' function
+// Returns true if at least one element of the slice returns true for the function
+func AnySlice[T any](s []T, f func(T) bool) bool {
+	var out bool
+
+	for _, elem := range s {
+		out = out || f(elem)
+	}
+
+	return out
+}
+
+// Generic all function
+// Returns true if all elements of the slice return true for the function
+func AllSlice[T any](s []T, f func(T) bool) bool {
+	out := true
+
+	for _, elem := range s {
+		out = out && f(elem)
+	}
+
+	return out
+}
+
+// Generic uniq function
+// Returns a slice containing the unique elements of the input slice
+func UniqSlice[T comparable](s []T) []T {
+	var out []T
+	var set map[T]struct{}
+
+	for _, elem := range s {
+		if _, present := set[elem]; !present { // If NOT present in the set
+			out = append(out, elem)
+			set[elem] = struct{}{}
+		}
 	}
 
 	return out
