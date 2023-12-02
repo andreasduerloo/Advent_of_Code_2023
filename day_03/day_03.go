@@ -12,5 +12,7 @@ func Solve() (int, int) {
 		return 0, 0
 	}
 
+	fmt.Println(input)
+
 	return 0, 0
 }

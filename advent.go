@@ -22,20 +22,13 @@ func main() {
 		fmt.Println("The argument is not an integer - exiting.")
 	}
 
-	fmt.Println("Solutions for day", day)
+	solved := []func() (int, int){day_01.Solve, day_02.Solve, day_03.Solve}
 
-	switch day {
-	case 1:
-		first, second := day_01.Solve()
+	if day <= len(solved) {
+		fmt.Println("Solutions for day", day)
+		first, second := solved[day-1]()
 		fmt.Println(first, second)
-	case 2:
-		first, second := day_02.Solve()
-		fmt.Println(first, second)
-	case 3:
-		first, second := day_03.Solve()
-		fmt.Println(first, second)
-	default:
+	} else {
 		fmt.Println("That's either not a valid day, or it has not been solved (yet!)")
 	}
-
 }
