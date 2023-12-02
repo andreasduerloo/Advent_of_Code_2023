@@ -20,7 +20,7 @@ func Solve() (int, int) {
 		green: 13,
 	}
 
-	first := filterReduce(games, max, possible, reduceGame)
+	first := filterReduce(games, max, possible, reduceId)
 
 	second := mapReduce(games, gamePower)
 

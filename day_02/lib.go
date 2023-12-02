@@ -70,7 +70,7 @@ func possible(g, max game) bool {
 	return g.blue <= max.blue && g.red <= max.red && g.green <= max.green
 }
 
-func reduceGame(g game) int {
+func reduceId(g game) int {
 	return g.id
 }
 
@@ -80,19 +80,6 @@ func filterReduce(s []game, max game, filter func(game, game) bool, reduce func(
 	for _, elem := range s {
 		if filter(elem, max) {
 			out += reduce(elem)
-		}
-	}
-
-	return out
-}
-
-// Generic filter function
-func filterSlice[T any](s []T, f func(T) bool) []T {
-	var out []T
-
-	for _, elem := range s {
-		if f(elem) {
-			out = append(out, elem)
 		}
 	}
 
@@ -113,8 +100,15 @@ func mapReduce(s []game, reduce func(game) int) int {
 	return out
 }
 
-/*
-func reduceSlice(s []game, f func(game) int) int {
-	//
+// Generic filter function
+func filterSlice[T any](s []T, f func(T) bool) []T {
+	var out []T
+
+	for _, elem := range s {
+		if f(elem) {
+			out = append(out, elem)
+		}
+	}
+
+	return out
 }
-*/
