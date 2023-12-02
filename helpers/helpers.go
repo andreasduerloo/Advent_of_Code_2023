@@ -267,3 +267,33 @@ func ReverseString(s string) string {
 
 	return out
 }
+
+//////////////////////////
+// Iterator-like things //
+//////////////////////////
+
+// Generic filter function
+func FilterSlice[T any](s []T, f func(T) bool) []T {
+	var out []T
+
+	for _, elem := range s {
+		if f(elem) {
+			out = append(out, elem)
+		}
+	}
+
+	return out
+}
+
+// Generic map function
+func MapSlice[T, U any](s []T, f func(T) U) []U {
+	var out []U
+
+	for _, elem := range s {
+		out = append(out, f(elem))
+	}
+
+	return out
+}
+
+// Todo: Reduce, take,...

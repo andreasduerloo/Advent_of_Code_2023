@@ -102,16 +102,3 @@ func mapReduce(s []game, reduce func(game) int) int {
 
 	return out
 }
-
-// Generic filter function
-func filterSlice[T any](s []T, f func(T) bool) []T {
-	var out []T
-
-	for _, elem := range s {
-		if f(elem) {
-			out = append(out, elem)
-		}
-	}
-
-	return out
-}
