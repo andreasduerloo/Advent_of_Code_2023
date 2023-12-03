@@ -19,7 +19,7 @@ type grid struct {
 }
 
 type gear struct {
-	neighbors []*number // Pointers to the rescue
+	neighbors []*number
 }
 
 ///////////////////
