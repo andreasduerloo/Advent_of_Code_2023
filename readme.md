@@ -26,3 +26,4 @@ Additionally, there is a **helpers** directory, containing a *helpers* package. 
 
 - [X] Day 1: [Trebuchet?!](https://github.com/andreasduerloo/Advent_of_Code_2023/tree/main/day_01) :star::star:
 - [X] Day 2: [Cube Conundrum](https://github.com/andreasduerloo/Advent_of_Code_2023/tree/main/day_02) :star::star:
+- [X] Day 3: [Gear Ratios](https://github.com/andreasduerloo/Advent_of_Code_2023/tree/main/day_03) :star::star:
