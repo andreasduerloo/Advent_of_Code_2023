@@ -12,7 +12,23 @@ func Solve() (int, int) {
 		return 0, 0
 	}
 
-	fmt.Println(input)
+	schematic, numbers, gears := parse(input)
 
-	return 0, 0
+	var first int
+
+	for _, number := range numbers {
+		valid, value := checkNumber(number, schematic, gears)
+
+		if valid {
+			first += value
+		}
+	}
+
+	var second int
+
+	for _, gear := range gears {
+		second += gearRatio(gear)
+	}
+
+	return first, second
 }
