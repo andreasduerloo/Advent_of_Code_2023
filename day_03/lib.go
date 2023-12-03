@@ -74,70 +74,35 @@ func parse(input []byte) (grid, []number, map[int]gear) {
 ////////////////
 
 func checkNumber(num number, schem grid, gears map[int]gear) (bool, int) {
-	// Check if the number is adjacent to a symbol
+	// Build a slice of neighbor indexes
+	var candidates []int
 
 	// Look at the row above
 	if num.begin >= schem.width {
 
 		// Can we look up and left?
 		if num.begin%schem.width != 0 {
-			if isSymbol(schem.data[num.begin-(schem.width+1)]) {
-				if schem.data[num.begin-(schem.width+1)] == '*' {
-					// This is a gear
-					gear, _ := gears[num.begin-(schem.width+1)]
-					gear.neighbors = append(gear.neighbors, &num)
-					gears[num.begin-(schem.width+1)] = gear
-				}
-				return true, num.value
-			}
+			candidates = append(candidates, num.begin-(schem.width+1))
 		}
 
 		// Can we look up and right?
 		if num.end%schem.width != schem.width {
-			if isSymbol(schem.data[num.end-schem.width]) {
-				if schem.data[num.end-schem.width] == '*' {
-					gear, _ := gears[num.end-schem.width]
-					gear.neighbors = append(gear.neighbors, &num)
-					gears[num.end-schem.width] = gear
-				}
-				return true, num.value
-			}
+			candidates = append(candidates, num.end-schem.width)
 		}
 
 		// Look up
 		for i := num.begin - schem.width; i < num.end-schem.width; i++ {
-			if isSymbol(schem.data[i]) {
-				if schem.data[i] == '*' {
-					gear, _ := gears[i]
-					gear.neighbors = append(gear.neighbors, &num)
-					gears[i] = gear
-				}
-				return true, num.value
-			}
+			candidates = append(candidates, i)
 		}
 	}
 
 	// Look at the same row
 	if num.begin > 0 {
-		if isSymbol(schem.data[num.begin-1]) {
-			if schem.data[num.begin-1] == '*' {
-				gear, _ := gears[num.begin-1]
-				gear.neighbors = append(gear.neighbors, &num)
-				gears[num.begin-1] = gear
-			}
-			return true, num.value
-		}
+		candidates = append(candidates, num.begin-1)
 	}
 
 	if num.end%schem.width != schem.width-1 {
-		if isSymbol(schem.data[num.end]) {
-			if schem.data[num.end] == '*' {
-				gear, _ := gears[num.end]
-				gear.neighbors = append(gear.neighbors, &num)
-				gears[num.end] = gear
-			}
-			return true, num.value
-		}
+		candidates = append(candidates, num.end)
 	}
 
 	// Look at the row below
@@ -145,38 +110,29 @@ func checkNumber(num number, schem grid, gears map[int]gear) (bool, int) {
 
 		// Can we look down and left?
 		if num.begin%schem.width != 0 {
-			if isSymbol(schem.data[num.begin+(schem.width-1)]) {
-				if schem.data[num.begin+(schem.width-1)] == '*' {
-					gear, _ := gears[num.begin+(schem.width-1)]
-					gear.neighbors = append(gear.neighbors, &num)
-					gears[num.begin+(schem.width-1)] = gear
-				}
-				return true, num.value
-			}
+			candidates = append(candidates, num.begin+(schem.width-1))
 		}
 
 		// Can we look down and right?
 		if num.end%schem.width != schem.width {
-			if isSymbol(schem.data[num.end+schem.width]) {
-				if schem.data[num.end+schem.width] == '*' {
-					gear, _ := gears[num.end+schem.width]
-					gear.neighbors = append(gear.neighbors, &num)
-					gears[num.end+schem.width] = gear
-				}
-				return true, num.value
-			}
+			candidates = append(candidates, num.end+schem.width)
 		}
 
 		// Look down
 		for i := num.begin + schem.width; i < num.end+schem.width; i++ {
-			if isSymbol(schem.data[i]) {
-				if schem.data[i] == '*' {
-					gear, _ := gears[i]
-					gear.neighbors = append(gear.neighbors, &num)
-					gears[i] = gear
-				}
-				return true, num.value
+			candidates = append(candidates, i)
+		}
+	}
+
+	for _, cand := range candidates {
+		if isSymbol(schem.data[cand]) {
+			if schem.data[cand] == '*' {
+				// This is a gear
+				gear, _ := gears[cand]
+				gear.neighbors = append(gear.neighbors, &num)
+				gears[cand] = gear
 			}
+			return true, num.value
 		}
 	}
 
