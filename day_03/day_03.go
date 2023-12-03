@@ -27,7 +27,7 @@ func Solve() (int, int) {
 	var second int
 
 	for _, gear := range gears {
-		second += gearRatio(gear)
+		second += gear.ratio()
 	}
 
 	return first, second

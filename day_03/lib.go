@@ -148,9 +148,18 @@ func isSymbol(r rune) bool {
 // Second star //
 /////////////////
 
+func (g *gear) ratio() int {
+	if len(g.neighbors) == 2 {
+		return g.neighbors[0].value * g.neighbors[1].value
+	}
+	return 0
+}
+
+/*
 func gearRatio(g gear) int {
 	if len(g.neighbors) == 2 {
 		return g.neighbors[0].value * g.neighbors[1].value
 	}
 	return 0
 }
+*/
