@@ -5,6 +5,7 @@ import (
 	"advent2023/day_02"
 	"advent2023/day_03"
 	"advent2023/day_04"
+	"advent2023/day_05"
 	"fmt"
 	"os"
 	"strconv"
@@ -23,7 +24,7 @@ func main() {
 		fmt.Println("The argument is not an integer - exiting.")
 	}
 
-	solved := []func() (int, int){day_01.Solve, day_02.Solve, day_03.Solve, day_04.Solve}
+	solved := []func() (int, int){day_01.Solve, day_02.Solve, day_03.Solve, day_04.Solve, day_05.Solve}
 
 	if day <= len(solved) {
 		fmt.Println("Solutions for day", day)
