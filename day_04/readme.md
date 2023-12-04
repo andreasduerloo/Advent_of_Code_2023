@@ -12,11 +12,13 @@ Two things can be optimized here:
 1. We are making a *very* long list, which brings potential memory and performance problems.
 2. We are recalculating the same thing a lot of times.
 
+Here's what we can do better:
+
 ## 1. Layers of abstraction
 
 This problem reminded me of [Advent of Code 2021 day 14](https://adventofcode.com/2021/day/14). In that problem, you had to count the number of elements in a polymer which roughly doubled in length every 'tick'. After enough ticks (2<sup>n</sup>, after all) the polymer would become far too long to iterate over efficiently. That meant the 'naive' approach of **simulating** the entire thing was not the optimal (or even a viable) solution. Additionally, we **were not being asked to simulate the entire polymer**, we just had to count each of the elements in it, and there were only a limited number of those.
 
-The same ting goes here: **we are not being asked to produce the entire list of scratchcards**, we just have to count how many there will be at the end. This can be achieved without adding a single item to a list.
+The same thing goes here: **we are not being asked to produce the entire list of scratchcards**, we just have to count how many there will be at the end. This can be achieved without adding a single item to a list.
 
 > [!Note]
 > Two takeaways:
