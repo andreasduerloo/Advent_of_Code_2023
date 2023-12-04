@@ -338,4 +338,26 @@ func UniqSlice[T comparable](s []T) []T {
 	return out
 }
 
-// Todo: Reduce, take,...
+// Generic reduce function
+// Returns a single value which is the result of a given function applied on an accumulator with each element in turn
+func ReduceSlice[T, U any](s []T, f func(T, U) U) U {
+	var acc U
+
+	for _, elem := range s {
+		acc = f(elem, acc)
+	}
+
+	return acc
+}
+
+// Generic mapReduce function
+// Returns a single value which is the result of a reduce function called on each element with an accumulator, after first mapping the element
+func MapReduceSlice[T, U, V any](s []T, m func(T) U, r func(U, V) V) V {
+	var acc V
+
+	for _, elem := range s {
+		acc = r(m(elem), acc)
+	}
+
+	return acc
+}

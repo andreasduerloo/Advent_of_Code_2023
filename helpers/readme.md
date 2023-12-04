@@ -11,7 +11,11 @@ MapSlice[T, U any](s []T, f func(T) U) []U
 AnySlice[T any](s []T, f func(T) bool) bool
 AllSlice[T any](s []T, f func(T) bool) bool
 UniqSlice[T comparable](s []T) []T
+ReduceSlice[T, U any](s []T, f func(T, U) U) U
+MapReduceSlice[T, U, V any](s []T, m func(T) U, r func(U, V) V) V
 ```
+
+Some others (like Sort and SortFunc) do exist in the standard library. They live in the slices package.
 
 ## Data structures
 
