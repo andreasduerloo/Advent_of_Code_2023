@@ -2,6 +2,17 @@
 
 This package contains functions (and some structs) that I think (hope?) will come in handy.
 
+## Higher-order functions
+Unless I missed them, the Go standard library does not have some of the higher-order functions and iterators that I have come to love in Elixir (see the [Enum](https://hexdocs.pm/elixir/1.15/Enum.html) module). I wrote the following functions (and will probably add more):
+
+```
+FilterSlice[T any](s []T, f func(T) bool) []T
+MapSlice[T, U any](s []T, f func(T) U) []U
+AnySlice[T any](s []T, f func(T) bool) bool
+AllSlice[T any](s []T, f func(T) bool) bool
+UniqSlice[T comparable](s []T) []T
+```
+
 ## Data structures
 
 ### Dequeue([]T) (T, []T)
