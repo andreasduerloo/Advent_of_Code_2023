@@ -2,7 +2,6 @@ package day_01
 
 import (
 	"advent2023/helpers"
-	"regexp"
 	"strconv"
 	"strings"
 )
@@ -72,25 +71,4 @@ func mapInts(slice [][]int, mapping func([]int) int) []int {
 		result = append(result, mapping(v))
 	}
 	return result
-}
-
-// Here is my original solution. It's good for the first star, but horrible for the second one. I rewrote my solution with the advantage of hindsight.
-
-func parse1(input []byte) []int {
-	lines := strings.Split(string(input), "\n")
-	out := make([]int, 0)
-
-	for _, line := range lines {
-		if line != "" {
-			reDigits := regexp.MustCompile(`\d{1}`)
-			matches := reDigits.FindAllString(line, -1)
-
-			first, _ := strconv.Atoi(matches[0])
-			second, _ := strconv.Atoi(matches[len(matches)-1])
-
-			out = append(out, (10*first + second))
-		}
-	}
-
-	return out
 }
