@@ -20,13 +20,6 @@ func Solve() (int, int) {
 		if valid, value := checkNumber(number, schematic, gears); valid {
 			first += value
 		}
-		/*
-			valid, value := checkNumber(number, schematic, gears)
-
-			if valid {
-				first += value
-			}
-		*/
 	}
 
 	var second int
