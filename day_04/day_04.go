@@ -12,7 +12,12 @@ func Solve() (int, int) {
 		return 0, 0
 	}
 
-	fmt.Println(input)
+	games := parse(input)
 
-	return 0, 0
+	var first int
+	for _, game := range games {
+		first += game.score()
+	}
+
+	return first, 0
 }
