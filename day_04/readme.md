@@ -29,7 +29,7 @@ The same thing goes here: **we are not being asked to produce the entire list of
 
 Even if we calculate the number of tickets rather than simulate it, we still have a problem. Consider this example:
 
-> The first scratchcards has two winning numbers, so we add the total cards for scratchcard 2 and 3. However, the total scratchcards for card 2 equals one plus the sum of the total for cards 3, 4,... etc.
+> The first scratchcard has two winning numbers, so we add the total cards for scratchcard 2 and 3. However, the total scratchcards for card 2 equals one plus the sum of the total for cards 3, 4,... etc.
 
 This is a recursive problem: we can keep expressing the amount of cards for a given card as a sum of other cards (and they are again sums of other cards, etc.) until we hit a base case. This approach might work, but you will be recalculating the same thing over and over again. In the example above, we would already be calculating the number of cards for scratchcard 2 twice, and probably far more in reality. Compare to calculating a fibonacci number recursively: a massive chunk of your recursion tree is just calculating fib(1) over and over again.
 
