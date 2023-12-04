@@ -22,10 +22,6 @@ type gear struct {
 	neighbors []*number
 }
 
-///////////////////
-// Input parsing //
-///////////////////
-
 func parse(input []byte) (grid, []number, map[int]gear) {
 	var gridvalue []rune
 	var numbers []number
@@ -68,10 +64,6 @@ func parse(input []byte) (grid, []number, map[int]gear) {
 
 	return outgrid, numbers, gears
 }
-
-////////////////
-// First star //
-////////////////
 
 func checkNumber(num number, schem grid, gears map[int]gear) (bool, int) {
 	// Build a slice of neighbor indexes
@@ -143,10 +135,6 @@ func isSymbol(r rune) bool {
 	symbols := regexp.MustCompile(`[^0-9.]`)
 	return symbols.Match([]byte(string(r)))
 }
-
-/////////////////
-// Second star //
-/////////////////
 
 func (g gear) ratio() int {
 	if len(g.neighbors) == 2 {
