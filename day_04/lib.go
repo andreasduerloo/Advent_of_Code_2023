@@ -77,7 +77,7 @@ func (g *game) score() int {
 }
 
 // Second star
-func (g game) newTickets(max int, cache map[int]int) int {
+func (g *game) newTickets(max int, cache map[int]int) int {
 	if g.id == max || g.numWin == 0 { // Base cases
 		cache[g.id] = 1
 		return 1

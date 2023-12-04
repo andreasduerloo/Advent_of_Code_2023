@@ -6,8 +6,8 @@ I see Advent of Code as a great way to become a better programmer (as well as a 
 
 ## Progress
 
-- **Goal progress: 6/31 :star:**
-- **Total score: 6/50 :star:**
+- **Goal progress: 8/31 :star:**
+- **Total score: 8/50 :star:**
 
 ## How is this repo structured?
 
@@ -27,3 +27,4 @@ Additionally, there is a **helpers** directory, containing a *helpers* package. 
 - [X] Day 1: [Trebuchet?!](https://github.com/andreasduerloo/Advent_of_Code_2023/tree/main/day_01) :star::star:
 - [X] Day 2: [Cube Conundrum](https://github.com/andreasduerloo/Advent_of_Code_2023/tree/main/day_02) :star::star:
 - [X] Day 3: [Gear Ratios](https://github.com/andreasduerloo/Advent_of_Code_2023/tree/main/day_03) :star::star:
+- [X] Day 4: [Scratchcards](https://github.com/andreasduerloo/Advent_of_Code_2023/tree/main/day_04) :star::star: - with readme :bulb:
