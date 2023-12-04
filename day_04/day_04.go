@@ -14,10 +14,21 @@ func Solve() (int, int) {
 
 	games := parse(input)
 
+	// First star
+
 	var first int
 	for _, game := range games {
 		first += game.score()
 	}
 
-	return first, 0
+	// Second star
+
+	cache := make(map[int]int)
+
+	var second int
+	for i := len(games); i >= 1; i-- { // Working backwards, see readme
+		second += games[i-1].newTickets(len(games), cache)
+	}
+
+	return first, second
 }
