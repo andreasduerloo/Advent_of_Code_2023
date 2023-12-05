@@ -3,6 +3,7 @@ package day_05
 import (
 	"fmt"
 	"os"
+	"slices"
 )
 
 func Solve() (int, int) {
@@ -12,7 +13,17 @@ func Solve() (int, int) {
 		return 0, 0
 	}
 
-	fmt.Println(input)
+	seeds, farmMaps := parse(input)
 
-	return 0, 0
+	for _, fmap := range farmMaps { // Do this with a map function?
+		var newVals []int
+		for _, seed := range seeds {
+			newVals = append(newVals, transform(seed, fmap))
+		}
+		seeds = newVals
+	}
+
+	first := slices.Min(seeds)
+
+	return first, 0
 }
