@@ -16,6 +16,11 @@ type rangeDef struct {
 	len    int
 }
 
+type seedPair struct {
+	low  int
+	high int
+}
+
 func parse(input []byte) ([]int, []farmMap) {
 	blocks := strings.Split(string(input), "\n\n")
 
@@ -53,4 +58,14 @@ func transform(seed int, transformation farmMap) int {
 
 	// It's not - just return what we got
 	return seed
+}
+
+func pair(seeds []int) []seedPair {
+	var out []seedPair
+
+	for i := 0; i < (len(seeds))-1; i += 2 {
+		out = append(out, seedPair{low: seeds[i], high: seeds[i+1]})
+	}
+
+	return out
 }

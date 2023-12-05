@@ -25,5 +25,8 @@ func Solve() (int, int) {
 
 	first := slices.Min(seeds)
 
+	seedPairs := pair(seeds)
+	fmt.Println(seedPairs)
+
 	return first, 0
 }
