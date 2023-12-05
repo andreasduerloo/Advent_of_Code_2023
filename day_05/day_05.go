@@ -14,6 +14,7 @@ func Solve() (int, int) {
 	}
 
 	seeds, farmMaps := parse(input)
+	seedPairs := pair(seeds)
 
 	for _, fmap := range farmMaps { // Do this with a map function?
 		var newVals []int
@@ -25,8 +26,34 @@ func Solve() (int, int) {
 
 	first := slices.Min(seeds)
 
-	seedPairs := pair(seeds)
-	fmt.Println(seedPairs)
+	// Second star: multithreaded brute force
+	lowestChan := make(chan int, 10)
+	var lowestVals []int
 
-	return first, 0
+	for i := 0; i < 10; i++ {
+		go func(s seedPair, f []farmMap, lowChan chan<- int) {
+			fmt.Println("I have started planting seeds!")
+			lowest := first
+			for i := s.low; i < s.low+s.count; i++ {
+				seed := i
+				for _, fmap := range f {
+					seed = transform(seed, fmap)
+				}
+				if seed < lowest {
+					lowest = seed
+				}
+			}
+			lowChan <- lowest
+		}(seedPairs[i], farmMaps, lowestChan)
+	}
+
+	for i := 0; i < 10; i++ {
+		received := <-lowestChan
+		fmt.Println("I received a lowest value!")
+		lowestVals = append(lowestVals, received)
+	}
+
+	second := slices.Min(lowestVals)
+
+	return first, second
 }

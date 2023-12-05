@@ -17,8 +17,8 @@ type rangeDef struct {
 }
 
 type seedPair struct {
-	low  int
-	high int
+	low   int
+	count int
 }
 
 func parse(input []byte) ([]int, []farmMap) {
@@ -64,8 +64,82 @@ func pair(seeds []int) []seedPair {
 	var out []seedPair
 
 	for i := 0; i < (len(seeds))-1; i += 2 {
-		out = append(out, seedPair{low: seeds[i], high: seeds[i+1]})
+		out = append(out, seedPair{low: seeds[i], count: seeds[i+1]})
 	}
 
 	return out
 }
+
+////////////////////
+// Code Graveyard //
+////////////////////
+
+func (f farmMap) lowestDestination() *rangeDef {
+	lowest := f.maps[0]
+
+	for _, fmap := range f.maps {
+		if fmap.dest < lowest.dest {
+			lowest = fmap
+		}
+	}
+
+	return lowest
+}
+
+func (f farmMap) findSource(dest *rangeDef) *rangeDef {
+	for _, fmap := range f.maps {
+		if canProduce(dest, fmap) {
+			var newSource, newLen int
+
+			if dest.source > fmap.dest {
+				newSource = fmap.source + (dest.source - fmap.dest)
+
+				if dest.source+dest.len > fmap.dest+fmap.len {
+					newLen = (fmap.dest + fmap.len) - newSource
+				} else {
+					newLen = (dest.source + dest.len) - newSource
+				}
+			} else {
+				newSource = fmap.source
+
+				if dest.source+dest.len > fmap.dest+fmap.len {
+					newLen = (fmap.dest + fmap.len) - newSource
+				} else {
+					newLen = (dest.source + dest.len) - newSource
+				}
+			}
+
+			return &rangeDef{
+				source: newSource,
+				dest:   0,
+				len:    newLen,
+			}
+		}
+	}
+
+	return &rangeDef{source: 0, dest: 0, len: 0}
+}
+
+func canProduce(wanted, given *rangeDef) bool {
+	if given.dest <= wanted.source && given.dest+given.len >= wanted.source {
+		return true
+	} else if given.dest >= wanted.source && given.dest+given.len <= wanted.source+wanted.len {
+		return true
+	}
+
+	return false
+}
+
+/*
+
+	// Second star
+	// Work backwards: what is the lowest range for the last map?
+	wanted := farmMaps[len(farmMaps)-1].lowestDestination() // We want something in that range (or lower, but we'll get there)
+	var previous farmMap
+
+	for i := 2; i <= len(farmMaps); i++ {
+		previous = farmMaps[len(farmMaps)-i]
+		Wanted := previous.findSource(wanted)
+		fmt.Println(Wanted)
+	}
+*/
