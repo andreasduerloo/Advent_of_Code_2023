@@ -26,7 +26,14 @@ func Solve() (int, int) {
 
 	first := slices.Min(seeds)
 
-	// Second star: multithreaded brute force
+	/* Second star
+	I brute forced the second star (using multithreading - thank you goroutines).
+	It works and it computes in a reasonable time (about two minutes), but it's obviously not the optimal solution.
+	I think I know what I need to do: work from the back and determine what input range produces the right output range at every step.
+	This is pretty complicated: there's the overlaps between the source and destination ranges to figure out, and the fact that numbers can bypass a map entirely.
+	I'll come back to this problem later. In the meantime, here's the brute force solution.
+	*/
+
 	lowestChan := make(chan int, 10)
 	var lowestVals []int
 
