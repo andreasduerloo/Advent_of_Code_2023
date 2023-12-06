@@ -5,11 +5,13 @@ Calculating the distance a boat will go in a given total time after waiting a gi
 What we need to know is the number of integers for which the following statement holds: `record distance < (wait time) * (total time - wait time)`. Knowing that the wait time is our variable, well call it x. We'll call the record distance d and the total time t. We have:
 
 ```math
-d \le x * (t - x)
-
-d \le tx - x^2
-
-0 \le -x^2 + tx - d
+d \lt x * (t - x)
+```
+```math
+d \lt tx - x^2
+```
+```math
+0 \lt -x^2 + tx - d
 
 ```
 
