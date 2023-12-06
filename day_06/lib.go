@@ -22,7 +22,7 @@ func winningRange(time, distance int) int {
 	left := ((-b + math.Sqrt(math.Pow(b, 2)-4*a*c)) / (2 * a))
 	right := ((-b - math.Sqrt(math.Pow(b, 2)-4*a*c)) / (2 * a))
 
-	return int(math.Floor(right) - math.Floor(left+1) + 1) // Add one to include both ends
+	return int(math.Floor(right) - math.Ceil(left) + 1) // Add one to include both ends
 }
 
 func concatNum(numbers []int) int {
