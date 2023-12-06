@@ -12,7 +12,18 @@ func Solve() (int, int) {
 		return 0, 0
 	}
 
-	fmt.Println(input)
+	times, distances := parse(input)
 
-	return 0, 0
+	first := 1
+
+	for i, time := range times {
+		first *= winningRange(time, distances[i])
+	}
+
+	time := concatNum(times)
+	distance := concatNum(distances)
+
+	second := winningRange(time, distance)
+
+	return first, second
 }
