@@ -13,15 +13,6 @@ func parse(input []byte) ([]int, []int) {
 	return helpers.ReGetInts(lines[0]), helpers.ReGetInts(lines[1])
 }
 
-// distance = (wait time) * (total time - wait time)
-//             | This is the speed       | This is how long you go at that speed
-
-// We need: record < (recordTime * waitTime) - waitTime²
-// <=> 0 < -waitTime² + (recordTime * waitTime) - record
-
-// With x = waitTime, these are are quadratic equations of the format -x²+(time * x) - distance. Find the zeroes for the equation, the range in between those is where we beat the record.
-// For the zeroes you can either iterate until you find a sign change (lame), or use the quadratic formula: (ab +/- sqrt(b² - 4ac))/2a.
-
 // Returns the number of integers for which we beat the record
 func winningRange(time, distance int) int {
 	a := float64(-1)
