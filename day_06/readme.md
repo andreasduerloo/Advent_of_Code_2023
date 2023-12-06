@@ -2,7 +2,7 @@
 
 Calculating the distance a boat will go in a given total time after waiting a given time is relatively trivial: distance = (wait time) * (total time - wait time). This makes it tempting to iterate through all possible waiting times and count those where we beat the record, but there is a far more efficient solution.
 
-What we need to know is the number of integers for which the following statement holds: `record distance < (wait time) * (total time - wait time)`. Knowing that the wait time is our variable, well call it x. We'll call the record distance d and the total time t. We have:
+What we need to know is the number of integers for which the following statement holds: `record distance < (wait time) * (total time - wait time)`. Knowing that the wait time is our variable, we'll call it x. We'll call the record distance d and the total time t. We have:
 
 ```math
 d \lt x * (t - x)
