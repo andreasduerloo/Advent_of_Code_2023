@@ -18,7 +18,7 @@ d \lt tx - x^2
 That's a [quadratic equation](https://en.wikipedia.org/wiki/Quadratic_equation) in the format $ax² + bx + c = 0$. As we all remember from high school, we can use the quadratic formula to find the zeroes for that kind of equation.
 
 $$
-\left x = \right (-b +- sqrt(b^2 -4ac))/2a
+\left x = \left \right (-b +- sqrt(b^2 -4ac))/2a \right
 $$
 
 The range defined by those zeroes is where our input beats the record. We just have to count how many integers are in that range (including the edges), and we have our answer.
