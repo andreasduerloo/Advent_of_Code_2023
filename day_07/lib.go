@@ -84,7 +84,7 @@ func compareHands(left, right *hand) int {
 func compareCards(left, right *hand, second bool) int {
 	var cards map[rune]int
 
-	if !second {
+	if !second { // First star
 		cards = map[rune]int{
 			'A': 13,
 			'K': 12,
@@ -100,7 +100,7 @@ func compareCards(left, right *hand, second bool) int {
 			'3': 2,
 			'2': 1,
 		}
-	} else {
+	} else { // Second star
 		cards = map[rune]int{
 			'A': 13,
 			'K': 12,
@@ -128,7 +128,7 @@ func compareCards(left, right *hand, second bool) int {
 	return 0
 }
 
-func sorter(second bool) func(*hand, *hand) int { // Returns the sorting function
+func sorter(second bool) func(*hand, *hand) int { // Returns the sorting function, based on what star it is
 	return func(left, right *hand) int {
 		if compareHands(left, right) != 0 {
 			return compareHands(left, right)
