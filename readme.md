@@ -30,3 +30,4 @@ Additionally, there is a **helpers** directory, containing a *helpers* package. 
 - [X] Day 4: [Scratchcards](https://github.com/andreasduerloo/Advent_of_Code_2023/tree/main/day_04) :star::star: - with readme :bulb:
 - [X] Day 5: [If You Give A Seed A Fertilizer](https://github.com/andreasduerloo/Advent_of_Code_2023/tree/main/day_05) :star::star: - needs rework
 - [X] Day 6: [Wait For It](https://github.com/andreasduerloo/Advent_of_Code_2023/tree/main/day_06) :star::star: - with readme :bulb:
+- [X] Day 7: [Camel Cards](https://github.com/andreasduerloo/Advent_of_Code_2023/tree/main/day_07) :star::star:
