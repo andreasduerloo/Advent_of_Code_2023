@@ -81,21 +81,41 @@ func compareHands(left, right *hand) int {
 	return hands[left.handType] - hands[right.handType]
 }
 
-func compareCards(left, right *hand) int {
-	cards := map[rune]int{
-		'A': 13,
-		'K': 12,
-		'Q': 11,
-		'J': 10,
-		'T': 9,
-		'9': 8,
-		'8': 7,
-		'7': 6,
-		'6': 5,
-		'5': 4,
-		'4': 3,
-		'3': 2,
-		'2': 1,
+func compareCards(left, right *hand, second bool) int {
+	var cards map[rune]int
+
+	if !second {
+		cards = map[rune]int{
+			'A': 13,
+			'K': 12,
+			'Q': 11,
+			'J': 10,
+			'T': 9,
+			'9': 8,
+			'8': 7,
+			'7': 6,
+			'6': 5,
+			'5': 4,
+			'4': 3,
+			'3': 2,
+			'2': 1,
+		}
+	} else {
+		cards = map[rune]int{
+			'A': 13,
+			'K': 12,
+			'Q': 11,
+			'T': 10,
+			'9': 9,
+			'8': 8,
+			'7': 7,
+			'6': 6,
+			'5': 5,
+			'4': 4,
+			'3': 3,
+			'2': 2,
+			'J': 1,
+		}
 	}
 
 	for i, r := range left.cards {
@@ -108,11 +128,13 @@ func compareCards(left, right *hand) int {
 	return 0
 }
 
-func compare(left, right *hand) int {
-	if compareHands(left, right) != 0 {
-		return compareHands(left, right)
-	} else {
-		return compareCards(left, right)
+func sorter(second bool) func(*hand, *hand) int { // Returns the sorting function
+	return func(left, right *hand) int {
+		if compareHands(left, right) != 0 {
+			return compareHands(left, right)
+		} else {
+			return compareCards(left, right, second)
+		}
 	}
 }
 
@@ -124,4 +146,56 @@ func score(hands []*hand) int {
 	}
 
 	return out
+}
+
+func (h *hand) reidentify() {
+	localmap := make(map[rune]int)
+
+	for _, r := range h.cards {
+		if val, present := localmap[r]; present {
+			localmap[r] = val + 1
+		} else {
+			localmap[r] = 1
+		}
+	}
+
+	if localmap['J'] == 0 || localmap['J'] == 5 { // No jacks or all jacks, no change.
+		return
+	}
+
+	// We have at least one joker
+	// Making the best hand always means adding it to the most common card (or one of them in case of a draw), because it will instantly transform it into a higher hand
+	highestCount := 0
+	var highestCard rune
+	for card, count := range localmap {
+		if card != 'J' {
+			if count > highestCount {
+				highestCount = count
+				highestCard = card
+			}
+		}
+	}
+
+	// The jacks count as whatever that card was
+	localmap[highestCard] += localmap['J']
+	delete(localmap, 'J')
+
+	switch len(localmap) { // How many different cards do we have
+	case 1:
+		h.handType = "five of a kind"
+	case 2: // XXJYY or XXXJY
+		product := 1
+		for _, count := range localmap {
+			product *= count
+		}
+		if product == 4 {
+			h.handType = "four of a kind"
+		} else if product == 6 {
+			h.handType = "full house"
+		}
+	case 3: // Always three of a kind, we never use a jack to make a second pair
+		h.handType = "three of a kind"
+	case 4:
+		h.handType = "one pair"
+	}
 }

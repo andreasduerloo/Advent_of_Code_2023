@@ -15,8 +15,15 @@ func Solve() (int, int) {
 
 	hands := parse(input)
 
-	slices.SortFunc(hands, compare)
+	slices.SortFunc(hands, sorter(false))
 	first := score(hands)
 
-	return first, 0
+	for _, hand := range hands {
+		hand.reidentify()
+	}
+
+	slices.SortFunc(hands, sorter(true))
+	second := score(hands)
+
+	return first, second
 }
