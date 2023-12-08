@@ -106,7 +106,6 @@ func stepsUntilZ(start *node, instructions string) int {
 	return steps
 }
 
-// GCD
 func greatestCommonDivisor(i, j int) int { // Euclid's algorithm
 	if j == 0 {
 		return i
@@ -119,7 +118,6 @@ func greatestCommonDivisor(i, j int) int { // Euclid's algorithm
 	return greatestCommonDivisor(j, i%j)
 }
 
-// LCM
 func leastCommonMultiple(i, j int) int {
 	return (i * j) / greatestCommonDivisor(i, j)
 }
