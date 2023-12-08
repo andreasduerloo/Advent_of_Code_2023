@@ -67,3 +67,69 @@ func steps(start, end *node, instructions string) int {
 
 	return steps
 }
+
+// Second star
+func startingPositions(nodes map[string]*node) []*node {
+	reStart := regexp.MustCompile(`[A-Z]{2}A`)
+	var out []*node
+
+	for name, node := range nodes {
+		if reStart.Match([]byte(name)) {
+			out = append(out, node)
+		}
+	}
+
+	return out
+}
+
+func stepsUntilZ(start *node, instructions string) int {
+	var steps int
+	current := start
+	stopRe := regexp.MustCompile(`[A-Z]{2}Z`)
+
+	instructionQueue := []rune(instructions)
+	var instruction rune
+
+	for !stopRe.Match([]byte(current.name)) {
+		instruction, instructionQueue = helpers.Dequeue(instructionQueue)
+
+		switch instruction {
+		case 'L':
+			current = current.left
+		case 'R':
+			current = current.right
+		}
+		steps += 1
+		instructionQueue = append(instructionQueue, instruction) // Put the instruction back at the end of the queue
+	}
+
+	return steps
+}
+
+// GCD
+func greatestCommonDivisor(i, j int) int { // Euclid's algorithm
+	if j == 0 {
+		return i
+	}
+
+	if j > i {
+		return greatestCommonDivisor(j, i)
+	}
+
+	return greatestCommonDivisor(j, i%j)
+}
+
+// LCM
+func leastCommonMultiple(i, j int) int {
+	return (i * j) / greatestCommonDivisor(i, j)
+}
+
+func findLCM(nums []int) int {
+	lcm := leastCommonMultiple(nums[0], nums[1])
+
+	for i := 0; i < len(nums); i++ {
+		lcm = leastCommonMultiple(lcm, nums[i])
+	}
+
+	return lcm
+}

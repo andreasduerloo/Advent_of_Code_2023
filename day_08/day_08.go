@@ -16,5 +16,16 @@ func Solve() (int, int) {
 
 	first := steps(nodes["AAA"], nodes["ZZZ"], instructions)
 
-	return first, 0
+	// Second star
+
+	starts := startingPositions(nodes)
+	var steps []int
+
+	for _, start := range starts {
+		steps = append(steps, stepsUntilZ(start, instructions))
+	}
+
+	second := findLCM(steps)
+
+	return first, second
 }
