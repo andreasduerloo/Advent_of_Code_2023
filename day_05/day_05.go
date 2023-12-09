@@ -87,12 +87,9 @@ func Solve() (int, int) {
 		I'll come back to this problem later.
 	*/
 
-	// Third try
-	// Gives the right answer (as well as two wrong answers, probably due to ignoring the passthrough mechanic)
-	// The first and last candidates aren't even in the actual seed list
+	// Third time is the charm
 
 	wanted := intrange{{0, first}}
-
 	common := findInput(wanted, farmMaps[len(farmMaps)-1])
 
 	for i := len(farmMaps) - 2; i >= 0; i-- {
