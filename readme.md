@@ -32,3 +32,4 @@ Additionally, there is a **helpers** directory, containing a *helpers* package. 
 - [X] Day 6: [Wait For It](https://github.com/andreasduerloo/Advent_of_Code_2023/tree/main/day_06) :star::star: - with readme :bulb:
 - [X] Day 7: [Camel Cards](https://github.com/andreasduerloo/Advent_of_Code_2023/tree/main/day_07) :star::star:
 - [X] Day 8: [Haunted Wasteland](https://github.com/andreasduerloo/Advent_of_Code_2023/tree/main/day_08) :star::star:
+- [X] Day 9: [Mirage Maintenance](https://github.com/andreasduerloo/Advent_of_Code_2023/tree/main/day_09) :star::star:
