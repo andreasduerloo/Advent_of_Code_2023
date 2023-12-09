@@ -22,7 +22,6 @@ func parse(input []byte) [][]int {
 
 func nextValue(line []int) int {
 	var allDifferences [][]int
-
 	current := line
 
 	for !slicetools.AllSlice(current, func(num int) bool { return num == 0 }) {
@@ -54,4 +53,24 @@ func differences(line []int) []int {
 	}
 
 	return out
+}
+
+// Second star
+func previousValue(line []int) int {
+	var allDifferences [][]int
+	current := line
+
+	for !slicetools.AllSlice(current, func(num int) bool { return num == 0 }) {
+		current = differences(current)
+		allDifferences = append(allDifferences, current)
+	}
+
+	return line[0] - backtrack(allDifferences)
+}
+
+func backtrack(differences [][]int) int { // Recursive
+	if len(differences) == 2 {
+		return differences[0][0] - differences[1][0]
+	}
+	return differences[0][0] - backtrack(differences[1:])
 }

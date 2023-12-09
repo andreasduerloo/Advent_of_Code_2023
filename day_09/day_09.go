@@ -19,5 +19,10 @@ func Solve() (int, int) {
 		first += nextValue(line)
 	}
 
-	return first, 0
+	var second int
+	for _, line := range lines {
+		second += previousValue(line)
+	}
+
+	return first, second
 }
