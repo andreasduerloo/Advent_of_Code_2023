@@ -3,6 +3,8 @@ package day_09
 import (
 	"advent2023/helpers"
 	"strings"
+
+	"github.com/andreasduerloo/slicetools"
 )
 
 func parse(input []byte) [][]int {
@@ -23,8 +25,8 @@ func nextValue(line []int) int {
 
 	current := line
 
-	for current[0] != 0 {
-		current = differences(line)
+	for !slicetools.AllSlice(current, func(num int) bool { return num == 0 }) {
+		current = differences(current)
 		allDifferences = append(allDifferences, current)
 	}
 
@@ -40,6 +42,12 @@ func nextValue(line []int) int {
 // Feels like we're deriving
 func differences(line []int) []int {
 	var out []int
+
+	/*
+		if len(line) == 1 {
+			return []int{0}
+		}
+	*/
 
 	for i := 0; i < len(line)-1; i++ {
 		out = append(out, (line[i+1] - line[i]))

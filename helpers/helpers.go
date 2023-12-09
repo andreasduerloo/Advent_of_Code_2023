@@ -87,7 +87,7 @@ func ParseIntList(input []byte) []int {
 // Returns all the integers found in a string as a slice. Integers do not need to be separated from non-integer runes
 // If you know a line will only contain a single int, grab it by indexing [0] in the output
 func ReGetInts(s string) []int {
-	re := regexp.MustCompile(`[0-9]+`)
+	re := regexp.MustCompile(`-?[0-9]+`)
 	matches := re.FindAllString(s, -1)
 
 	ints := make([]int, 0)
