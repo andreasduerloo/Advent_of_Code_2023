@@ -14,7 +14,7 @@ func Solve() (int, int) {
 	}
 
 	seeds, farmMaps := parse(input)
-	seedPairs := pair(seeds)
+	// seedPairs := pair(seeds)
 
 	for _, fmap := range farmMaps { // Do this with a map function?
 		var newVals []int
@@ -67,23 +67,48 @@ func Solve() (int, int) {
 	// Going back from the first answer, we reverse every possible outcome until we find a source within the given seed ranges.
 	// It's a bit hacky, because there could still be a lower value possible, however that doesn't seem to be the case for my input.
 
-	slices.Reverse(farmMaps)
+	/*
+		slices.Reverse(farmMaps)
 
-	for i := first; i >= 0; i-- {
-		value := i
-		for _, fmap := range farmMaps {
-			value = reverse(value, fmap)
+		for i := first; i >= 0; i-- {
+			value := i
+			for _, fmap := range farmMaps {
+				value = reverse(value, fmap)
+			}
+			if contains(value, seedPairs) {
+				second = i
+			}
 		}
-		if contains(value, seedPairs) {
-			second = i
-		}
-	}
+	*/
 
 	/*
 		I think I know what I need to do for a more optimal solution: work from the back and determine what input range produces the right output range at every step.
 		This is pretty complicated: there's the overlaps between the source and destination ranges to figure out, and the fact that numbers can bypass a map entirely.
 		I'll come back to this problem later.
 	*/
+
+	// Third try
+	// Gives the right answer (as well as two wrong answers, probably due to ignoring the passthrough mechanic)
+
+	wanted := intrange{{0, first}}
+	seedRanges := toIntRange(seeds)
+
+	common := findInput(wanted, farmMaps[len(farmMaps)-1])
+
+	for i := len(farmMaps) - 2; i >= 0; i-- {
+		common = findInput(common, farmMaps[i])
+	}
+
+	toTest := intersection(common, seedRanges)
+
+	for _, test := range toTest {
+		seed := test[0]
+		for _, fmap := range farmMaps {
+			seed = transform(seed, fmap)
+		}
+
+		fmt.Println(seed)
+	}
 
 	return first, second
 }

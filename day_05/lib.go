@@ -168,3 +168,35 @@ func contains(val int, pairs []seedPair) bool {
 	}
 	return false
 }
+
+// Third time is the charm!
+// We need a function that maps an outcome (intrange) to an input (also intrange), based on a farmMap
+// We know that the solution is in the outcome range [0, first], so we work back from there until we hit the seed pairs
+
+func findInput(outcome intrange, fmap farmMap) intrange { // Does not handle passthrough values
+	var out intrange
+
+	for _, rd := range fmap.maps {
+		common := intersection([][]int{{rd.dest, rd.dest + rd.len}}, outcome)
+		if len(common) != 0 {
+			for _, c := range common { // Individual pairs, subtract the offset to get to the unput
+				c[0] = c[0] + (rd.source - rd.dest)
+				c[1] = c[1] + (rd.source - rd.dest)
+			}
+
+			out = union(common, out)
+		}
+	}
+
+	return out
+}
+
+func toIntRange(seeds []int) intrange {
+	var out intrange
+
+	for i := 0; i < (len(seeds))-1; i += 2 {
+		out = append(out, []int{seeds[i], seeds[i] + seeds[i+1]})
+	}
+
+	return out
+}
