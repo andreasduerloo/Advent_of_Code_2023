@@ -131,3 +131,5 @@ func findLCM(nums []int) int {
 
 	return lcm
 }
+
+// Chinese remainder theorem
