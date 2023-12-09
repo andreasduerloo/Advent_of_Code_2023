@@ -2,6 +2,7 @@ package day_05
 
 import (
 	"advent2023/helpers"
+	"slices"
 	"strings"
 )
 
@@ -60,6 +61,8 @@ func transform(seed int, transformation farmMap) int {
 	return seed
 }
 
+// Second star
+
 func pair(seeds []int) []seedPair {
 	var out []seedPair
 
@@ -70,76 +73,98 @@ func pair(seeds []int) []seedPair {
 	return out
 }
 
-////////////////////
-// Code Graveyard //
-////////////////////
+// Ranges and range operations
 
-func (f farmMap) lowestDestination() *rangeDef {
-	lowest := f.maps[0]
+type intrange [][]int
 
-	for _, fmap := range f.maps {
-		if fmap.dest < lowest.dest {
-			lowest = fmap
-		}
-	}
+func intersection(left, right intrange) intrange {
+	var out intrange
 
-	return lowest
-}
+	for _, leftpair := range left {
+		for _, rightpair := range right {
+			start := slices.Max([]int{leftpair[0], rightpair[0]})
+			end := slices.Min([]int{leftpair[1], rightpair[1]})
 
-func (f farmMap) findSource(dest *rangeDef) *rangeDef {
-	for _, fmap := range f.maps {
-		if canProduce(dest, fmap) {
-			var newSource, newLen int
-
-			if dest.source > fmap.dest {
-				newSource = fmap.source + (dest.source - fmap.dest)
-
-				if dest.source+dest.len > fmap.dest+fmap.len {
-					newLen = (fmap.dest + fmap.len) - newSource
-				} else {
-					newLen = (dest.source + dest.len) - newSource
-				}
-			} else {
-				newSource = fmap.source
-
-				if dest.source+dest.len > fmap.dest+fmap.len {
-					newLen = (fmap.dest + fmap.len) - newSource
-				} else {
-					newLen = (dest.source + dest.len) - newSource
-				}
-			}
-
-			return &rangeDef{
-				source: newSource,
-				dest:   0,
-				len:    newLen,
+			if start <= end { // If this is false, the ranges do not overlap at all.
+				out = append(out, []int{start, end})
 			}
 		}
 	}
 
-	return &rangeDef{source: 0, dest: 0, len: 0}
+	return mergeRanges(out)
 }
 
-func canProduce(wanted, given *rangeDef) bool {
-	if given.dest <= wanted.source && given.dest+given.len >= wanted.source {
-		return true
-	} else if given.dest >= wanted.source && given.dest+given.len <= wanted.source+wanted.len {
-		return true
+func union(left, right intrange) intrange {
+	allRanges := append(left, right...) // Put all the subranges together
+	return mergeRanges(allRanges)
+}
+
+func sortRanges(left, right []int) int {
+	return left[0] - right[0]
+}
+
+func mergeRanges(ranges intrange) intrange {
+	if len(ranges) <= 1 { // Already as simple as it will ever be
+		return ranges
 	}
 
+	slices.SortFunc(ranges, sortRanges)
+
+	var mergedRanges intrange
+	mergedRanges = append(mergedRanges, ranges[0])
+
+	for i := 1; i < len(ranges); i++ {
+		currentRange := ranges[i]
+		previousRange := mergedRanges[len(mergedRanges)-1]
+
+		if currentRange[0] <= previousRange[1] { // These ranges overlap
+			previousRange[1] = slices.Max([]int{previousRange[1], currentRange[1]})
+		} else { // These don't
+			mergedRanges = append(mergedRanges, currentRange)
+		}
+	}
+
+	return mergedRanges
+}
+
+func destToIntRange(fm farmMap) intrange {
+	var out intrange
+
+	for _, r := range fm.maps {
+		out = append(out, []int{r.dest, r.dest + r.len})
+	}
+
+	return out
+}
+
+func sourceToIntRange(fm farmMap) intrange {
+	var out intrange
+
+	for _, r := range fm.maps {
+		out = append(out, []int{r.source, r.source + r.len})
+	}
+
+	return out
+}
+
+// Another option: reverse transform
+func reverse(outcome int, transformation farmMap) int {
+	// Check whether the value is in any of the output ranges
+	for _, mapRange := range transformation.maps {
+		if outcome >= mapRange.dest && outcome <= mapRange.dest+mapRange.len {
+			return mapRange.source + (outcome - mapRange.dest)
+		}
+	}
+
+	// It's not - just return what we got
+	return outcome
+}
+
+func contains(val int, pairs []seedPair) bool {
+	for _, pair := range pairs {
+		if val >= pair.low && val <= pair.low+pair.count {
+			return true
+		}
+	}
 	return false
 }
-
-/*
-
-	// Second star
-	// Work backwards: what is the lowest range for the last map?
-	wanted := farmMaps[len(farmMaps)-1].lowestDestination() // We want something in that range (or lower, but we'll get there)
-	var previous farmMap
-
-	for i := 2; i <= len(farmMaps); i++ {
-		previous = farmMaps[len(farmMaps)-i]
-		Wanted := previous.findSource(wanted)
-		fmt.Println(Wanted)
-	}
-*/
