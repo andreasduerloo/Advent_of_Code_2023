@@ -14,6 +14,7 @@ func Solve() (int, int) {
 	}
 
 	seeds, farmMaps := parse(input)
+	seedRanges := toIntRange(seeds)
 	// seedPairs := pair(seeds)
 
 	for _, fmap := range farmMaps { // Do this with a map function?
@@ -25,7 +26,6 @@ func Solve() (int, int) {
 	}
 
 	first := slices.Min(seeds)
-	var second int
 
 	/* Second star
 	I brute forced the second star using multithreading, which is fortunately one of go's strengths.
@@ -89,26 +89,25 @@ func Solve() (int, int) {
 
 	// Third try
 	// Gives the right answer (as well as two wrong answers, probably due to ignoring the passthrough mechanic)
+	// The first and last candidates aren't even in the actual seed list
 
 	wanted := intrange{{0, first}}
-	seedRanges := toIntRange(seeds)
 
 	common := findInput(wanted, farmMaps[len(farmMaps)-1])
 
 	for i := len(farmMaps) - 2; i >= 0; i-- {
 		common = findInput(common, farmMaps[i])
 	}
+	toTest := intersection(common, seedRanges) // We're at the last step: find the intersection with the seed ranges
 
-	toTest := intersection(common, seedRanges)
+	var second int
+	seed := toTest[0][0] // Use the lowest input value of the correct range
 
-	for _, test := range toTest {
-		seed := test[0]
-		for _, fmap := range farmMaps {
-			seed = transform(seed, fmap)
-		}
-
-		fmt.Println(seed)
+	for _, fmap := range farmMaps {
+		seed = transform(seed, fmap)
 	}
+
+	second = seed
 
 	return first, second
 }
