@@ -89,7 +89,7 @@ func checkNumber(num number, schem grid, gears map[int]gear) (bool, int) {
 	}
 
 	// Look at the same row
-	if num.begin > 0 {
+	if num.begin%schem.width != 0 {
 		candidates = append(candidates, num.begin-1)
 	}
 
