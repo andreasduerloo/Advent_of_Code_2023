@@ -12,13 +12,12 @@ func Solve() (int, int) {
 		return 0, 0
 	}
 
-	start, pipes := parse(input)
+	start, pipes, width := parse(input)
 
 	stepCount := steps(start)
 	first := (stepCount + 1) / 2
 
-	second := len(pipes) - (bfs(pipes[0]) + stepCount)
-	// The problem is that squeezing between the pipes is allowed - think of a way to work with that
+	second := scan(pipes, width)
 
 	return first, second
 }

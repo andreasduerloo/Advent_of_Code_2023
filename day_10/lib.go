@@ -1,7 +1,6 @@
 package day_10
 
 import (
-	"advent2023/helpers"
 	"slices"
 	"strings"
 )
@@ -9,12 +8,10 @@ import (
 type pipe struct {
 	value     rune
 	connected []*pipe
-	neighbors []*pipe
 	visited   bool
-	set       int
 }
 
-func parse(input []byte) (*pipe, []*pipe) {
+func parse(input []byte) (*pipe, []*pipe, int) {
 	lines := strings.Split(string(input), "\n")
 	var pipes []*pipe
 	var start *pipe
@@ -27,49 +24,6 @@ func parse(input []byte) (*pipe, []*pipe) {
 	for _, line := range lines {
 		for _, r := range line {
 			pipes = append(pipes, &pipe{value: r})
-		}
-	}
-
-	// Set the neighbor pointers (second star) - WRAP AROUND THE EDGES
-	for i, p := range pipes {
-		if i >= width {
-			nb := p.neighbors
-			nb = append(nb, pipes[i-width])
-			p.neighbors = nb
-		} else {
-			nb := p.neighbors
-			nb = append(nb, pipes[len(pipes)-width-i])
-			p.neighbors = nb
-		}
-
-		if i < width*height-width {
-			nb := p.neighbors
-			nb = append(nb, pipes[i+width])
-			p.neighbors = nb
-		} else {
-			nb := p.neighbors
-			nb = append(nb, pipes[i-(width*height-width)])
-			p.neighbors = nb
-		}
-
-		if i%width > 0 {
-			nb := p.neighbors
-			nb = append(nb, pipes[i-1])
-			p.neighbors = nb
-		} else {
-			nb := p.neighbors
-			nb = append(nb, pipes[i+(width-1)])
-			p.neighbors = nb
-		}
-
-		if i%width != width-1 {
-			nb := p.neighbors
-			nb = append(nb, pipes[i+1])
-			p.neighbors = nb
-		} else {
-			nb := p.neighbors
-			nb = append(nb, pipes[i-(width)+1])
-			p.neighbors = nb
 		}
 	}
 
@@ -149,31 +103,71 @@ func parse(input []byte) (*pipe, []*pipe) {
 	}
 
 	// Set the neighbor pointers for start
+	possible := make(map[rune]int)
+
 	if startIndex-width > 0 && slices.Contains([]rune{'|', '7', 'F'}, pipes[startIndex-width].value) {
 		nb := start.connected
 		nb = append(nb, pipes[startIndex-width])
 		start.connected = nb
+
+		for _, r := range []rune{'|', 'J', 'L'} {
+			if _, present := possible[r]; present {
+				possible[r] += 1
+			} else {
+				possible[r] = 1
+			}
+		}
 	}
 
 	if startIndex+width < width*height-width && slices.Contains([]rune{'|', 'J', 'L'}, pipes[startIndex+width].value) {
 		nb := start.connected
 		nb = append(nb, pipes[startIndex+width])
 		start.connected = nb
+
+		for _, r := range []rune{'|', '7', 'F'} {
+			if _, present := possible[r]; present {
+				possible[r] += 1
+			} else {
+				possible[r] = 1
+			}
+		}
 	}
 
 	if (startIndex-1)%width != 0 && slices.Contains([]rune{'-', 'F', 'L'}, pipes[startIndex-1].value) {
 		nb := start.connected
 		nb = append(nb, pipes[startIndex-1])
 		start.connected = nb
+
+		for _, r := range []rune{'-', '7', 'J'} {
+			if _, present := possible[r]; present {
+				possible[r] += 1
+			} else {
+				possible[r] = 1
+			}
+		}
 	}
 
 	if (startIndex+1)%width != width-1 && slices.Contains([]rune{'F', 'J', '7'}, pipes[startIndex+1].value) {
 		nb := start.connected
 		nb = append(nb, pipes[startIndex+1])
 		start.connected = nb
+
+		for _, r := range []rune{'-', 'L', 'F'} {
+			if _, present := possible[r]; present {
+				possible[r] += 1
+			} else {
+				possible[r] = 1
+			}
+		}
 	}
 
-	return start, pipes
+	for r, count := range possible {
+		if count == 2 {
+			start.value = r
+		}
+	}
+
+	return start, pipes, width
 }
 
 func steps(start *pipe) int {
@@ -195,39 +189,48 @@ func steps(start *pipe) int {
 			current = current.connected[1]
 		}
 	}
+	current.visited = true
 
 	return out
 }
 
-// Second star
-// Breadth-first search from the top left corner re-using the 'visited' field. Anything we can't reach is enclosed by the loop
-// So second = total - (staps + bfs)
-func bfs(start *pipe) int {
-	var queue []*pipe
+// Tried BFS, didn't work because you can squeeze between the pipes
+// Polygon technique: keep track of whether we are inside or outside the shape defined by the loop
+func scan(grid []*pipe, width int) int {
 	var out int
+	var inside bool
+	var entryChar rune
 
-	current := start
-	current.visited = true
-	out += 1
-
-	for _, nb := range current.neighbors {
-		if !nb.visited {
-			nb.visited = true
-			queue = append(queue, nb)
+	// Kind of regretting working with a single slice now
+	for i, p := range grid {
+		if i%width == 0 {
+			inside = false
 		}
-	}
 
-	for len(queue) > 0 {
-		current, queue = helpers.Dequeue(queue)
-		out += 1
-
-		for _, nb := range current.neighbors {
-			if !nb.visited {
-				nb.visited = true
-				queue = append(queue, nb)
+		if p.visited && p.value != '-' { // We're on the loop (ignoring horizontals)
+			switch p.value {
+			case '|':
+				inside = !inside // Flip inside, whatever it was
+			case 'F': // We're starting a horizontal line
+				entryChar = p.value
+				inside = !inside
+			case 'L': // We're starting a horizontal line
+				entryChar = p.value
+				inside = !inside
+			case 'J': // We're ending a horizontal line
+				if entryChar != 'F' { // Flip
+					inside = !inside
+				}
+			case '7': // We're ending a horizontal line
+				if entryChar != 'L' { // Flip
+					inside = !inside
+				}
+			}
+		} else if !p.visited { // We're not on the loop
+			if inside {
+				out += 1
 			}
 		}
 	}
-
 	return out
 }
