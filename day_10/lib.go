@@ -173,7 +173,7 @@ func parse(input []byte) (*pipe, []*pipe, int) {
 func steps(start *pipe) int {
 	var out int
 
-	// Pick one of hte neighbors
+	// Pick one of the neighbors
 	current := start
 	current.visited = true
 	out += 1
