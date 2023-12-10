@@ -6,8 +6,8 @@ I see Advent of Code as a great way to become a better programmer (as well as a 
 
 ## Progress
 
-- **Goal progress: 18/31 :star:**
-- **Total score: 18/50 :star:**
+- **Goal progress: 20/31 :star:**
+- **Total score: 20/50 :star:**
 
 ## How is this repo structured?
 
