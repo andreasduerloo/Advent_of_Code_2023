@@ -3,6 +3,8 @@ package day_11
 import (
 	"fmt"
 	"os"
+
+	"github.com/andreasduerloo/slicetools"
 )
 
 func Solve() (int, int) {
@@ -12,7 +14,31 @@ func Solve() (int, int) {
 		return 0, 0
 	}
 
-	fmt.Println(input)
+	image, emptyRows, emptyCols := parse(input)
+	image1 := slicetools.MapSlice(image, func(g galaxy) galaxy { return g.trueCoordinates(emptyRows, emptyCols) }) // Woo closure!
 
-	return 0, 0
+	var first int
+
+	for _, galaxy := range image1 {
+		for _, otherGalaxy := range image1 {
+			first += distance(galaxy, otherGalaxy)
+		}
+	}
+
+	first = first / 2 // We counted everything twice
+
+	// Second star
+	image2 := slicetools.MapSlice(image, func(g galaxy) galaxy { return g.bigCoordinates(emptyRows, emptyCols) })
+
+	var second int
+
+	for _, galaxy := range image2 {
+		for _, otherGalaxy := range image2 {
+			second += distance(galaxy, otherGalaxy)
+		}
+	}
+
+	second = second / 2
+
+	return first, second
 }
