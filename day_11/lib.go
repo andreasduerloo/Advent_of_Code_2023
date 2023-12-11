@@ -47,23 +47,13 @@ func parse(input []byte) ([]galaxy, []int, []int) {
 	return out, emptyRows, emptyCols
 }
 
-func (g galaxy) trueCoordinates(emptyRows, emptyCols []int) galaxy {
+func (g galaxy) trueCoordinates(emptyRows, emptyCols []int, factor int) galaxy {
 	rowsBefore := len(slicetools.FilterSlice(emptyRows, func(i int) bool { return i < g.row }))
 	colsBefore := len(slicetools.FilterSlice(emptyCols, func(i int) bool { return i < g.col }))
 
 	return galaxy{
-		row: g.row + rowsBefore,
-		col: g.col + colsBefore,
-	}
-}
-
-func (g galaxy) bigCoordinates(emptyRows, emptyCols []int) galaxy {
-	rowsBefore := len(slicetools.FilterSlice(emptyRows, func(i int) bool { return i < g.row }))
-	colsBefore := len(slicetools.FilterSlice(emptyCols, func(i int) bool { return i < g.col }))
-
-	return galaxy{
-		row: g.row + ((1000000 - 1) * rowsBefore), // It's not row + factor * rows, but row + (factor - 1) * rows, it just worked out the same for 2.
-		col: g.col + ((1000000 - 1) * colsBefore), // Because we already count the empty row/col in the original coordinate!
+		row: g.row + (factor-1)*rowsBefore,
+		col: g.col + (factor-1)*colsBefore,
 	}
 }
 

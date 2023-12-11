@@ -15,7 +15,7 @@ func Solve() (int, int) {
 	}
 
 	image, emptyRows, emptyCols := parse(input)
-	image1 := slicetools.MapSlice(image, func(g galaxy) galaxy { return g.trueCoordinates(emptyRows, emptyCols) }) // Woo closure!
+	image1 := slicetools.MapSlice(image, func(g galaxy) galaxy { return g.trueCoordinates(emptyRows, emptyCols, 2) }) // Woo closure!
 
 	var first int
 
@@ -28,7 +28,7 @@ func Solve() (int, int) {
 	first = first / 2 // We counted everything twice
 
 	// Second star
-	image2 := slicetools.MapSlice(image, func(g galaxy) galaxy { return g.bigCoordinates(emptyRows, emptyCols) })
+	image2 := slicetools.MapSlice(image, func(g galaxy) galaxy { return g.trueCoordinates(emptyRows, emptyCols, 1000000) })
 
 	var second int
 
