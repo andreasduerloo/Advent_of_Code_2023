@@ -52,7 +52,7 @@ func (g galaxy) trueCoordinates(emptyRows, emptyCols []int, factor int) galaxy {
 	colsBefore := len(slicetools.FilterSlice(emptyCols, func(i int) bool { return i < g.col }))
 
 	return galaxy{
-		row: g.row + (factor-1)*rowsBefore,
+		row: g.row + (factor-1)*rowsBefore, // We already count the empty row in the original coordinate
 		col: g.col + (factor-1)*colsBefore,
 	}
 }
