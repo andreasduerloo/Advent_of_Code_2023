@@ -36,5 +36,6 @@ func (r row) possibilites() int {
 
 	// If longer than next number -> take it
 	// Try to add next number as well
+	// If a number can fit in more than one block, sum the possibilities with the number in one block and the possibilities with the number in the other block
 }
 */

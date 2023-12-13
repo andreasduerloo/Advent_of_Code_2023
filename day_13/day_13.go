@@ -3,10 +3,12 @@ package day_13
 import (
 	"fmt"
 	"os"
+
+	"github.com/andreasduerloo/slicetools"
 )
 
 func Solve() (int, int) {
-	input, err := os.ReadFile("./inputs/13.txt")
+	input, err := os.ReadFile("./inputs/13a.txt")
 	if err != nil {
 		fmt.Println("Could not read the input file - exiting")
 		return 0, 0
@@ -16,8 +18,17 @@ func Solve() (int, int) {
 	var first int
 
 	for _, block := range blocks {
-		first += value(block)
+		val, _, _ := value(block)
+		first += val
 	}
 
-	return first, 0
+	smudgedMirrors := slicetools.MapSlice(blocks, smudge)
+
+	var second int
+
+	for _, mirror := range smudgedMirrors {
+		second += mirror
+	}
+
+	return first, second
 }
