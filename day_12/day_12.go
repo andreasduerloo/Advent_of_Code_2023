@@ -12,7 +12,9 @@ func Solve() (int, int) {
 		return 0, 0
 	}
 
-	fmt.Println(input)
+	springs := parse(input)
+
+	fmt.Println(springs[0])
 
 	return 0, 0
 }
