@@ -6,8 +6,8 @@ I see Advent of Code as a great way to become a better programmer (as well as a 
 
 ## Progress
 
-- **Goal progress: 22/31 :star:**
-- **Total score: 22/50 :star:**
+- **Goal progress: 24/31 :star:**
+- **Total score: 24/50 :star:**
 
 ## How is this repo structured?
 
@@ -35,3 +35,7 @@ Additionally, there is a **helpers** directory, containing a *helpers* package. 
 - [X] Day 9: [Mirage Maintenance](https://github.com/andreasduerloo/Advent_of_Code_2023/tree/main/day_09) :star::star:
 - [X] Day 10: [Pipe Maze](https://github.com/andreasduerloo/Advent_of_Code_2023/tree/main/day_10) :star::star:
 - [X] Day 11: [Cosmic Expansion](https://github.com/andreasduerloo/Advent_of_Code_2023/tree/main/day_11) :star::star:
+- [ ] Day 12: [Hot Springs](https://github.com/andreasduerloo/Advent_of_Code_2023/tree/main/day_11)
+- [ ] Day 13: [Point of Incidence](https://github.com/andreasduerloo/Advent_of_Code_2023/tree/main/day_13) :star:
+- [ ] Day 14: [Parabolic Reflector Dish](https://github.com/andreasduerloo/Advent_of_Code_2023/tree/main/day_14) :star:
+- [ ] Day 15: [Lens Library](https://github.com/andreasduerloo/Advent_of_Code_2023/tree/main/day_15) :star:

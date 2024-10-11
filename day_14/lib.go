@@ -18,6 +18,8 @@ func parse(input []byte) [][]rune {
 	return out
 }
 
+// TODO
+// There's a bug in this function
 func rollNorth(rocks *[][]rune) {
 	for row, line := range *rocks {
 		for col, r := range line {
@@ -63,6 +65,29 @@ func calculateLoad(rocks [][]rune) int {
 		for _, rock := range line {
 			if rock == 'O' {
 				out += (max - row)
+				// fmt.Println("We're on row", row, "so I'm adding", (max - row), "the total is now", out)
+			}
+		}
+	}
+
+	return out
+}
+
+func rollAndCount(rocks [][]rune) int {
+	var out int
+	max := len(rocks)
+
+	// Column by column
+	for col := 0; col < len(rocks[0]); col++ {
+		lastFree := 0
+
+		for row := 0; row < len(rocks); row++ {
+			switch rocks[row][col] {
+			case 'O':
+				out += (max - (lastFree))
+				lastFree = (lastFree + 1)
+			case '#':
+				lastFree = (row + 1)
 			}
 		}
 	}

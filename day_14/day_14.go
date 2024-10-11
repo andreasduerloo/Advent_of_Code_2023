@@ -13,9 +13,11 @@ func Solve() (int, int) {
 	}
 
 	rocks := parse(input)
-	rollNorth(&rocks)
 
-	first := calculateLoad(rocks)
+	// rollNorth(&rocks)
+	// first := calculateLoad(rocks)
+
+	first := rollAndCount(rocks)
 
 	/*
 		for _, line := range rocks {
