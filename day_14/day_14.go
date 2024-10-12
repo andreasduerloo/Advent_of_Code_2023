@@ -14,16 +14,16 @@ func Solve() (int, int) {
 
 	rocks := parse(input)
 
-	// rollNorth(&rocks)
-	// first := calculateLoad(rocks)
+	rollNorth(&rocks)
+	first := calculateLoad(rocks)
 
-	first := rollAndCount(rocks)
+	rep := cycle(1_000_000_000, 1, &rocks)
+	rocks = parse(input)
 
-	/*
-		for _, line := range rocks {
-			fmt.Println(string(line))
-		}
-	*/
+	fmt.Println(rep)
 
-	return first, 0
+	cycle2(rep+30, 0, &rocks)
+	second := calculateLoad(rocks)
+
+	return first, second
 }
